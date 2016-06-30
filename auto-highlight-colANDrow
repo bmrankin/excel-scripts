@@ -23,3 +23,5 @@ With Rows(pRow).Interior
     .Pattern = xlSolid
 End With
 End Sub
+
+//from https://www.extendoffice.com/documents/excel/1494-excel-highlight-active-row-and-column.html
