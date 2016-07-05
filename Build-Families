@@ -1,0 +1,172 @@
+Sub buildFamilyCodeVariationsTable()
+
+Dim rng As Range
+Dim lastRow As Long
+Dim cell As Variant
+Dim count As Long
+Dim wks1 As String
+Dim wks2 As String
+
+
+wks1 = "Resources" 'Source Worksheet
+wks2 = "FamilyBuildingSheet" 'Destination Worksheet
+
+count = 0
+
+Sheets(wks2).Activate
+If MsgBox("This will erase everything on the current build table! Are you sure?", vbYesNo) = vbNo Then Exit Sub
+
+Range("A2:G100").Clear
+
+Sheets(wks1).Activate
+
+'Copy Dial Sizes that are true
+With Sheets(wks1)
+
+    lastRow = .Range("G" & .Rows.count).End(xlUp).Row
+    Set rng = .Range("G3:G" & lastRow)
+    
+
+
+    For Each cell In rng
+        If cell.Value = True Then
+              Range(cell.Address()).Offset(0, 2).Select
+            Selection.Copy
+            
+            Sheets(wks2).Activate
+            MaxRows = Cells(Rows.count, "B").End(xlUp).Row
+            Range("B" & MaxRows + 1).PasteSpecial xlPasteValues
+            
+            count = count + 1            'dont forget to increment count
+
+            Sheets(wks1).Activate
+
+        End If
+    Next
+End With
+
+'Copy Process Media  that are true
+With Sheets(wks1)
+
+    lastRow = .Range("M" & .Rows.count).End(xlUp).Row
+    Set rng = .Range("M3:M" & lastRow)
+    
+
+
+    For Each cell In rng
+        If cell.Value = True Then
+              Range(cell.Address()).Offset(0, 2).Select
+            Selection.Copy
+            
+            Sheets(wks2).Activate
+            MaxRows = Cells(Rows.count, "C").End(xlUp).Row
+            Range("C" & MaxRows + 1).PasteSpecial xlPasteValues
+            
+            count = count + 1            'dont forget to increment count
+
+            Sheets(wks1).Activate
+
+        End If
+    Next
+End With
+
+'Copy Connection Types that are true
+With Sheets(wks1)
+
+    lastRow = .Range("T" & .Rows.count).End(xlUp).Row
+    Set rng = .Range("T3:T" & lastRow)
+    
+
+
+    For Each cell In rng
+        If cell.Value = True Then
+              Range(cell.Address()).Offset(0, 2).Select
+            Selection.Copy
+            
+            Sheets(wks2).Activate
+            MaxRows = Cells(Rows.count, "D").End(xlUp).Row
+            Range("D" & MaxRows + 1).PasteSpecial xlPasteValues
+            
+            count = count + 1            'dont forget to increment count
+
+            Sheets(wks1).Activate
+
+        End If
+    Next
+End With
+
+'Copy Connection Locations that are true
+With Sheets(wks1)
+
+    lastRow = .Range("Y" & .Rows.count).End(xlUp).Row
+    Set rng = .Range("Y3:Y" & lastRow)
+    
+
+
+    For Each cell In rng
+        If cell.Value = True Then
+              Range(cell.Address()).Offset(0, 2).Select
+            Selection.Copy
+            
+            Sheets(wks2).Activate
+            MaxRows = Cells(Rows.count, "E").End(xlUp).Row
+            Range("E" & MaxRows + 1).PasteSpecial xlPasteValues
+            
+            count = count + 1            'dont forget to increment count
+
+            Sheets(wks1).Activate
+
+        End If
+    Next
+End With
+
+End Sub
+
+
+
+'''' BUILD FAMILES
+
+
+Sub buildFamilies()
+    Dim i As Long, j As Long, k As Long, l As Long
+    Dim firstRow As Long
+    Dim iEnd As Long, jEnd As Long, kEnd As Long, lEnd As Long
+    Dim CountComb As Long, lastRow As Long
+    Dim Model As String
+    
+    Model = "1259"
+    
+    Application.ScreenUpdating = False
+    
+    If MsgBox("This will erase everything on the current build table! Are you sure?", vbYesNo) = vbNo Then Exit Sub
+    
+    Range("H2:H20000").Clear
+
+    firstRow = 2
+    
+    'dynamically set the last row
+    iEnd = Range("B1048576").End(xlUp).Row
+    jEnd = Range("C1048576").End(xlUp).Row
+    kEnd = Range("D1048576").End(xlUp).Row
+    lEnd = Range("E1048576").End(xlUp).Row
+    'MsgBox iEnd & " " & jEnd & " " & lEnd & " " & kEnd
+    
+    
+    'For
+    For i = 2 To iEnd: For j = 2 To jEnd
+    For k = 2 To kEnd: For l = 2 To lEnd
+        Range("H" & firstRow).Value = Range("B" & i).Value & _
+                                     "1259" & _
+                                     Range("C" & j).Value & _
+                                     Range("D" & k).Value & _
+                                     Range("E" & l).Value
+                                     
+        firstRow = firstRow + 1
+        'CountComb = CountComb + 1
+        
+    Next: Next
+    Next: Next
+    
+    Application.ScreenUpdating = True
+End Sub
+
